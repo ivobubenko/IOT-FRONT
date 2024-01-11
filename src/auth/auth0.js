@@ -5,7 +5,7 @@ import auth0 from "auth0-js";
 const auth0Config = {
   domain: "dev-1lem1kbt4nmv4sqz.us.auth0.com",
   clientID: "gURbUHFZkNlXtxfE0k5HD3uLT1qqt5tn",
-  redirectUri: "http://localhost:3000", // Your callback URL
+  redirectUri: "https://iot-front-mu.vercel.app/", // Your callback URL
   responseType: "token id_token",
   scope: "openid profile email",
 };
