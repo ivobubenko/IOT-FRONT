@@ -6,10 +6,10 @@ const LoginButton = () => {
 
   return (
     <button
-      className="border-solid border-2 border-blue-900 rounded bg-blue-400 min-w-24"
+      className="border-solid border-2 border-sky-500 rounded min-w-24 bg-sky-50 hover:bg-sky-100"
       onClick={() => loginWithRedirect()}
     >
-      Login
+      <p className="text-4xl subpixel-antialiased ">Login</p>
     </button>
   );
 };

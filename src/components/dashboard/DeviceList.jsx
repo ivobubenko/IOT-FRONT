@@ -6,8 +6,10 @@ export default function DeviceList({ id, device }) {
     changeDevice(id);
   };
   return (
-    <li key={id}>
-      <button onClick={handleClick}>{device?.name}</button>
+    <li className="hover:bg-slate-400" key={id}>
+      <button className="w-full" onClick={handleClick}>
+        {device?.name}
+      </button>
     </li>
   );
 }

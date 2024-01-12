@@ -7,11 +7,14 @@ import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const domain = process.env.REACT_APP_AUTH0_DOMAIN;
+const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
 root.render(
   <React.StrictMode>
     <Auth0Provider
-      domain="dev-1lem1kbt4nmv4sqz.us.auth0.com"
-      clientId="gURbUHFZkNlXtxfE0k5HD3uLT1qqt5tn"
+      domain={domain}
+      clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin,
       }}
