@@ -1,15 +1,20 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import { signOut } from "firebase/auth";
+import { auth } from "../config/firebase";
 
 const LogoutButton = () => {
-  const { logout } = useAuth0();
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <button
       className="border-solid border-2 border-blue-900 rounded bg-blue-400 min-w-24"
-      onClick={() =>
-        logout({ logoutParams: { returnTo: window.location.origin } })
-      }
+      onClick={logOut}
     >
       Log Out
     </button>

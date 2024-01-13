@@ -1,11 +1,7 @@
-import { Fragment } from "react";
 import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
-import { useUser } from "../context/UserContext";
-import LoginButton from "../auth/LoginButton";
-import LogoutButton from "../auth/LogoutButton";
 import LoggedUser from "./LoggedUser";
 
 const navigation = [
@@ -20,8 +16,6 @@ function classNames(...classes) {
 }
 
 export default function Navigation() {
-  const { user } = useUser();
-  console.log(user);
   return (
     <Disclosure as="nav" className="bg-teal-50">
       {({ open }) => (
@@ -69,8 +63,7 @@ export default function Navigation() {
                 </div>
               </div>
               <div className="w-auto h-full absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {/* Profile dropdown */}
-                {!user ? <LoginButton>Login</LoginButton> : <LoggedUser />}
+                {<LoggedUser />}
               </div>
             </div>
           </div>

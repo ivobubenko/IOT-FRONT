@@ -1,13 +1,12 @@
 // UserContext.js
-
+import "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getUserData } from "../components/api/get-devices";
-import { useAuth0 } from "@auth0/auth0-react";
+import { auth } from "../config/firebase";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const { user: auth0User } = useAuth0();
   const [user, setUser] = useState(null);
   const [devices, setDevices] = useState([
     { name: "plant" },
@@ -18,17 +17,27 @@ export const UserProvider = ({ children }) => {
     { name: "plant6" },
     { name: "plant7" },
   ]);
+
   const [showedDevice, setShowedDevice] = useState(0);
 
   useEffect(() => {
-    setUser(auth0User);
-  }, [auth0User]);
+    // Set up the authentication observer
+
+    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      setUser(authUser);
+    });
+
+    // Clean up the observer when the component unmounts
+
+    return () => unsubscribe();
+  }, [user]);
 
   useEffect(() => {
     const fetchDevices = async () => {
       if (user) {
         try {
-          const userData = await getUserData(auth0User.email);
+          console.log(user);
+          const userData = await getUserData(user.uid);
           const devicesArr = userData[0].devices;
           setDevices(devicesArr);
         } catch (error) {
@@ -36,8 +45,9 @@ export const UserProvider = ({ children }) => {
         }
       }
     };
+
     fetchDevices();
-  }, [auth0User]);
+  }, [user]);
 
   const changeDevice = (number) => {
     setShowedDevice(number);
