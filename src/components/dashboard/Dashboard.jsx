@@ -5,14 +5,15 @@ import {
   ChartBarIcon,
   Cog6ToothIcon,
   ChartPieIcon,
+  PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import DeviceList from "./DeviceList";
 
 export default function Dashboard() {
   const { devices } = useUser();
   return (
-    <div className="flex mx-auto space-x-4 max-w-6xl py-5 min-h-96">
-      <div className="container mx-auto border-solid  rounded max-w-5xl border-2 border-sky-500">
+    <div className="flex mx-auto max-w-7xl py-5 min-h-96 max-h-[70vh]">
+      <div className="container mx-auto border-solid  rounded max-w-5xl border-2 border-grey-200">
         <div className="flex justify-around w-full border border-x-2  divide-x">
           <Link
             to="/dashboard"
@@ -44,16 +45,22 @@ export default function Dashboard() {
             <Cog6ToothIcon className="h-6 w-6" aria-hidden="true" />
           </Link>
         </div>
-        <div className="w-3/4">
+        <div className="h-full">
           <Outlet />
         </div>
       </div>
-      <div className="container mx-auto  border-solid max-w- rounded border-2 border-sky-500 max-w-24">
-        <h1 className="py-2 font-semibold">Your devices</h1>
-        <ul>
+      <div className="container border-solid w-full rounded border-2 border-grey-200  max-w-60 overflow-auto ">
+        <h1 className="py-2 font-semibold border-b-[1px]">Your devices</h1>
+        <ul className="list-none h-full">
           {devices?.map((device, id) => {
             return <DeviceList key={id} id={id} device={device} />;
           })}
+          <Link to="/newDevice">
+            <li className="h-auto flex items-center justify-center ">
+              <PlusCircleIcon className="h-10 w-10" aria-hidden="true" /> <p />
+              Add new device
+            </li>
+          </Link>
         </ul>
       </div>
     </div>

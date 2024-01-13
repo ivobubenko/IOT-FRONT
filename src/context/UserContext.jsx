@@ -9,7 +9,15 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const { user: auth0User } = useAuth0();
   const [user, setUser] = useState(null);
-  const [devices, setDevices] = useState(null);
+  const [devices, setDevices] = useState([
+    { name: "plant" },
+    { name: "plant2" },
+    { name: "plant3" },
+    { name: "plant4" },
+    { name: "plantasdfasdfadsfadsfa5" },
+    { name: "plant6" },
+    { name: "plant7" },
+  ]);
   const [showedDevice, setShowedDevice] = useState(0);
 
   useEffect(() => {

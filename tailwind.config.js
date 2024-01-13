@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      backgroundColor: {
+        currentDevice: "#0EE1B4",
+      },
+    },
     fontSize: {
       "2xl": [
         "1.5rem",
