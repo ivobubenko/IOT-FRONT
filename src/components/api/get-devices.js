@@ -1,8 +1,11 @@
-export async function getUserData(email) {
+import { auth } from "../../config/firebase";
+
+export async function getUserDevices() {
   let userData;
   try {
-    const response = await fetch(`http://localhost:8080/getUser/${email}`);
-    //console.log(await response.json());
+    const ownerId = auth.currentUser.uid;
+    const response = await fetch(`http://localhost:8080/getdevices/${ownerId}`);
+
     userData = await response.json();
   } catch (e) {
     throw new Error();

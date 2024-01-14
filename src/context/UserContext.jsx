@@ -1,7 +1,7 @@
 // UserContext.js
 import "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getUserData } from "../components/api/get-devices";
+import { getUserDevices } from "../components/api/get-devices";
 import { auth } from "../config/firebase";
 
 const UserContext = createContext();
@@ -9,6 +9,7 @@ const UserContext = createContext();
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [devices, setDevices] = useState([
+    /*
     { name: "plant" },
     { name: "plant2" },
     { name: "plant3" },
@@ -16,6 +17,7 @@ export const UserProvider = ({ children }) => {
     { name: "plantasdfasdfadsfadsfa5" },
     { name: "plant6" },
     { name: "plant7" },
+*/
   ]);
 
   const [showedDevice, setShowedDevice] = useState(0);
@@ -36,9 +38,10 @@ export const UserProvider = ({ children }) => {
     const fetchDevices = async () => {
       if (user) {
         try {
-          console.log(user);
-          const userData = await getUserData(user.uid);
-          const devicesArr = userData[0].devices;
+          const userData = await getUserDevices(user.uid);
+          console.log(userData.devices);
+
+          const devicesArr = userData.devices;
           setDevices(devicesArr);
         } catch (error) {
           console.error("Error fetching devices:", error);
