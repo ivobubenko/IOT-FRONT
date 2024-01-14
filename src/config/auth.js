@@ -10,6 +10,7 @@ const registerUser = async (user) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer htTeTaXThUkLYdy7nSvzM3zY",
         },
         body: JSON.stringify({
           acessToken: user.accessToken,
