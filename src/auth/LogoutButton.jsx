@@ -13,7 +13,7 @@ const LogoutButton = () => {
 
   return (
     <button
-      className="border-solid border-2 border-blue-900 rounded bg-blue-400 min-w-24"
+      className="block px-4 py-2 w-full text-sm text-gray-700 text-center flex mx-auto"
       onClick={logOut}
     >
       Log Out
