@@ -5,17 +5,12 @@ import { useUser } from "../../context/UserContext";
 export default function Pagination() {
   const { devices, showedDevice, changeDevice } = useUser();
   const handleNext = (e) => {
-    if (showedDevice + 1 >= devices.length) return;
-
-    changeDevice(showedDevice + 1);
     e.preventDefault();
+    changeDevice(showedDevice + 1 >= devices.length ? 0 : showedDevice + 1);
   };
   const handlePrevious = (e) => {
-    if (showedDevice - 1 < 0) return;
-
-    changeDevice(showedDevice - 1);
-
     e.preventDefault();
+    changeDevice(showedDevice - 1 < 0 ? devices.length - 1 : showedDevice - 1);
   };
   return (
     <div className="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6">
