@@ -13,6 +13,7 @@ import NewDevice from "./components/newdevice/NewDevice";
 
 import LandingPage from "./loginpage/LandingPage";
 import { auth } from "./config/firebase";
+import Welcoming from "./components/welcoming/Welcoming";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -34,6 +35,7 @@ function App() {
           <div className="App">
             <Navigation />
             <Routes>
+              <Route path="/" element={<Welcoming />} />
               <Route path="/dashboard" element={<Dashboard />}>
                 <Route path="" element={<DashboardContent />} />
                 <Route path="analytics" element={<Analytics />} />
