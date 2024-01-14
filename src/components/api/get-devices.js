@@ -6,7 +6,7 @@ export async function getUserDevices() {
   try {
     const ownerId = auth.currentUser.uid;
     const response = await fetch(
-      `https://iot-server-vqnv.vercel.app/${ownerId}`,
+      `https://iot-server-o8j2.onrender.com/${ownerId}`,
       {
         headers: {
           Authorization: "Bearer htTeTaXThUkLYdy7nSvzM3zY",

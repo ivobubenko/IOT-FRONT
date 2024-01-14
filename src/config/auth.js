@@ -4,11 +4,10 @@ import { signInWithPopup } from "firebase/auth";
 const registerUser = async (user) => {
   try {
     //console.log(user);
-    const response = await fetch("https://iot-server-vqnv.vercel.app/login", {
+    const response = await fetch("https://iot-server-o8j2.onrender.com/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer htTeTaXThUkLYdy7nSvzM3zY",
       },
       body: JSON.stringify({
         acessToken: user.accessToken,
