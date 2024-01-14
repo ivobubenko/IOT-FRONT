@@ -7,7 +7,7 @@ export const addDevice = async (device) => {
     const ownerId = auth.currentUser.uid;
 
     const response = await fetch(
-      "https://iot-server-am3ha201v-ivo-bubenkos-projects.vercel.app//newdevice",
+      "https://iot-server-am3ha201v-ivo-bubenkos-projects.vercel.app/newdevice",
       {
         method: "POST",
         headers: {
