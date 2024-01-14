@@ -5,7 +5,7 @@ const registerUser = async (user) => {
   try {
     //console.log(user);
     const response = await fetch(
-      "https://iot-server-am3ha201v-ivo-bubenkos-projects.vercel.app//login",
+      "https://iot-server-am3ha201v-ivo-bubenkos-projects.vercel.app/login",
       {
         method: "POST",
         headers: {
