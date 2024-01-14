@@ -6,12 +6,7 @@ export async function getUserDevices() {
   try {
     const ownerId = auth.currentUser.uid;
     const response = await fetch(
-      `https://iot-server-o8j2.onrender.com/${ownerId}`,
-      {
-        headers: {
-          Authorization: "Bearer htTeTaXThUkLYdy7nSvzM3zY",
-        },
-      }
+      `https://iot-server-o8j2.onrender.com/getdevices/${ownerId}`
     );
 
     userData = await response.json();
