@@ -48,7 +48,7 @@ export default function Dashboard() {
             </Link>
           </div>
           <div className="h-full">
-            {!devices ? (
+            {devices ? (
               <Outlet />
             ) : (
               <div className="mx-auto h-full text-9xl font-semibold ">{`No devices yet :(`}</div>
