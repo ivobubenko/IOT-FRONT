@@ -2,7 +2,7 @@
 import "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../config/firebase";
-import { addDeviceAPI, getUserDevices } from "./api";
+import { addDeviceAPI, getUserDevices, removeDeviceApi } from "./api";
 
 const UserContext = createContext();
 
@@ -13,13 +13,9 @@ export const UserProvider = ({ children }) => {
   const [showedDevice, setShowedDevice] = useState(0);
 
   useEffect(() => {
-    // Set up the authentication observer
-
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       setUser(authUser);
     });
-
-    // Clean up the observer when the component unmounts
 
     return () => unsubscribe();
   }, []);
@@ -29,13 +25,10 @@ export const UserProvider = ({ children }) => {
       if (user) {
         try {
           const userData = await getUserDevices(user.uid);
-          console.log(userData.devices);
 
           const devicesArr = userData.devices;
           setDevices(devicesArr);
-        } catch (error) {
-          console.error("Error fetching devices:", error);
-        }
+        } catch (error) {}
       }
     };
 
@@ -45,19 +38,30 @@ export const UserProvider = ({ children }) => {
   const changeDevice = (number) => {
     setShowedDevice(number);
   };
+
+  const removeDevice = async () => {
+    //console.log(user, devices[showedDevice]);
+    const uid = user.uid;
+    const deviceId = devices[showedDevice].id;
+    const response = await removeDeviceApi(uid, deviceId);
+    setDevices(response.updatedDevices);
+    response.success && setShowedDevice(0);
+    return response;
+  };
   const addDevice = async (device) => {
     const newDevices = await addDeviceAPI(device);
-    console.log(newDevices);
+
     if (newDevices.message === "Device added") {
       setDevices(newDevices.devices);
 
       setShowedDevice(
         newDevices.devices.findIndex((d) => d.id === device.deviceId) ?? 0
       );
+      /*
       console.log(newDevices.devices, device);
       console.log(
         newDevices.devices.findIndex((d) => d.id === device.deviceId) ?? 0
-      );
+      );*/
     } else if (newDevices.message === "Device already exists!") {
       setShowedDevice(devices.findIndex((d) => d.id === device.deviceId));
     }
@@ -66,7 +70,14 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ user, devices, changeDevice, showedDevice, addDevice }}
+      value={{
+        user,
+        devices,
+        changeDevice,
+        showedDevice,
+        addDevice,
+        removeDevice,
+      }}
     >
       {children}
     </UserContext.Provider>

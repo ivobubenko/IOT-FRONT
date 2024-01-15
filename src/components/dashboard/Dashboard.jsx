@@ -48,7 +48,11 @@ export default function Dashboard() {
             </Link>
           </div>
           <div className="h-full">
-            <Outlet />
+            {!devices ? (
+              <Outlet />
+            ) : (
+              <div className="mx-auto h-full text-9xl font-semibold ">{`No devices yet :(`}</div>
+            )}
           </div>
         </div>
         <div className="container border-solid w-full rounded border-2 border-grey-200  max-w-60 overflow-auto hidden sm:inline">
@@ -58,7 +62,11 @@ export default function Dashboard() {
               return <DeviceList key={id} id={id} device={device} />;
             })}
             <Link to="/newDevice">
-              <li className="h-auto flex items-center justify-center ">
+              <li
+                className="h-auto flex items-center justify-center"
+                key={devices.length}
+                id={devices.length}
+              >
                 <PlusCircleIcon className="h-10 w-10" aria-hidden="true" />{" "}
                 <p />
                 Add new device

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useUser } from "../../context/UserContext";
+import Spinner from "../errors/Spinner";
 
 export default function NewDevice() {
   const { addDevice } = useUser();
@@ -115,13 +116,7 @@ export default function NewDevice() {
               </button>
             </form>
           ) : (
-            <img
-              className="h-20 w-20  py-5 px-5 flex mx-auto animate-spin "
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              src={process.env.PUBLIC_URL + "/Icons/planter.png"}
-              alt="planter"
-            />
+            <Spinner />
           )}
         </div>
       </div>

@@ -69,3 +69,12 @@ export const registerUser = async (user) => {
     console.error("Error registering user:", error);
   }
 };
+
+export const removeDeviceApi = async (uid, deviceId) => {
+  const response = await fetch(
+    `https://iot-server-o8j2.onrender.com/deletedevice/${uid}/${deviceId}`
+  );
+  const result = await response.json();
+  console.log(result);
+  return result;
+};

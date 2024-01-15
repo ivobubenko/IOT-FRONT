@@ -15,7 +15,7 @@ export default function Welcoming() {
         const data = await res.json();
         setPlantsData(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        //console.error("Error fetching data:", error);
       }
     };
     fetchData();
