@@ -24,9 +24,6 @@ export default function NewDevice() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Call your addDevice function with formData
-
-    // Device added successfully, now fetch user devices
     try {
       setLoading(true);
       await addDevice(formData);
