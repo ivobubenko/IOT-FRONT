@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 
 export default function NewDevice() {
-  const { changeDevice, devices, addDevice } = useUser();
+  const { addDevice } = useUser();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -20,17 +21,20 @@ export default function NewDevice() {
     setFormData({ ...formData, selectedPlant: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Call your addDevice function with formData
-    if (addDevice(formData) === "false") {
-      alert("Something went wrong");
-      return;
+
+    // Device added successfully, now fetch user devices
+    try {
+      setLoading(true);
+      await addDevice(formData);
+      setLoading(false);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error fetching user devices:", error);
     }
-    //console.log("success");
-    changeDevice(devices.length - 1);
-    navigate("/dashboard");
   };
 
   return (
@@ -44,74 +48,84 @@ export default function NewDevice() {
               alt="futuristic pot"
             />
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="mt-2 py-6">
-              <label
-                htmlFor="name"
-                className="block text-sm font-medium leading-6 text-gray-900"
+          {!loading ? (
+            <form onSubmit={handleSubmit}>
+              <div className="mt-2 py-6">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Name of device
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="text-xl text-center block w-full text-xl rounded-md border-0 py-1.5 md:px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              <div className="mt-2">
+                <label
+                  htmlFor="deviceId"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Device ID
+                </label>
+                <input
+                  type="text"
+                  id="deviceId"
+                  name="deviceId"
+                  required
+                  maxLength="4"
+                  minLength="4"
+                  value={formData.deviceId}
+                  onChange={handleInputChange}
+                  className="text-xl text-center block w-full text-xl md:px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
+              <div className="mt-2">
+                <label
+                  htmlFor="selectedPlant"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Select Plant
+                </label>
+                <select
+                  id="selectedPlant"
+                  name="selectedPlant"
+                  required
+                  value={formData.selectedPlant}
+                  onChange={handlePlantSelectChange}
+                  className="mx-auto text-center block w-min  max-w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                >
+                  <option value="" disabled>
+                    Select a plant
+                  </option>
+                  <option value="Paprika">Paprika</option>
+                  <option value="Sunflower">Sunflower</option>
+                  <option value="Rose">Rose</option>
+                  <option value="Cactus">Cactus</option>
+                </select>
+              </div>
+              <button
+                type="submit"
+                className="flex w-[70%] mx-auto mt-2 justify-center rounded-md bg-emerald-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Name of device
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                value={formData.name}
-                onChange={handleInputChange}
-                className="text-xl text-center block w-full text-xl rounded-md border-0 py-1.5 md:px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-            <div className="mt-2">
-              <label
-                htmlFor="deviceId"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Device ID
-              </label>
-              <input
-                type="text"
-                id="deviceId"
-                name="deviceId"
-                required
-                maxLength="4"
-                minLength="4"
-                value={formData.deviceId}
-                onChange={handleInputChange}
-                className="text-xl text-center block w-full text-xl md:px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-            <div className="mt-2">
-              <label
-                htmlFor="selectedPlant"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Select Plant
-              </label>
-              <select
-                id="selectedPlant"
-                name="selectedPlant"
-                required
-                value={formData.selectedPlant}
-                onChange={handlePlantSelectChange}
-                className="mx-auto text-center block w-min  max-w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              >
-                <option value="" disabled>
-                  Select a plant
-                </option>
-                <option value="Paprika">Paprika</option>
-                <option value="Sunflower">Sunflower</option>
-                <option value="Rose">Rose</option>
-                <option value="Cactus">Cactus</option>
-              </select>
-            </div>
-            <button
-              type="submit"
-              className="flex w-[70%] mx-auto mt-2 justify-center rounded-md bg-emerald-300 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Add device
-            </button>
-          </form>
+                Add device
+              </button>
+            </form>
+          ) : (
+            <img
+              className="h-20 w-20  py-5 px-5 flex mx-auto animate-spin "
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              src={process.env.PUBLIC_URL + "/Icons/planter.png"}
+              alt="planter"
+            />
+          )}
         </div>
       </div>
     </div>

@@ -25,7 +25,7 @@ export const addDeviceAPI = async (device) => {
 
     const result = await response.json();
     console.log(result);
-    return "success";
+    return result;
   } catch (error) {
     console.error("Error registering device:", error);
     return "false";

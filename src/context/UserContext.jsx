@@ -46,7 +46,22 @@ export const UserProvider = ({ children }) => {
     setShowedDevice(number);
   };
   const addDevice = async (device) => {
-    addDeviceAPI(device);
+    const newDevices = await addDeviceAPI(device);
+    console.log(newDevices);
+    if (newDevices.message === "Device added") {
+      setDevices(newDevices.devices);
+
+      setShowedDevice(
+        newDevices.devices.findIndex((d) => d.id === device.deviceId) ?? 0
+      );
+      console.log(newDevices.devices, device);
+      console.log(
+        newDevices.devices.findIndex((d) => d.id === device.deviceId) ?? 0
+      );
+    } else if (newDevices.message === "Device already exists!") {
+      setShowedDevice(devices.findIndex((d) => d.id === device.deviceId));
+    }
+    return "Failed";
   };
 
   return (
