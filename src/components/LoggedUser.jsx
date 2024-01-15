@@ -1,12 +1,7 @@
 import LogoutButton from "../auth/LogoutButton";
 import { useUser } from "../context/UserContext";
 import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
+import { Menu, Transition } from "@headlessui/react";
 
 export default function LoggedUser() {
   const { user } = useUser();
@@ -39,12 +34,5 @@ export default function LoggedUser() {
         </Menu.Items>
       </Transition>
     </Menu>
-
-    /*
-    <div className="ms:max-w-9">
-      <h1>{user?.displayName}</h1>
-      <LogoutButton />
-    </div>
-    */
   );
 }

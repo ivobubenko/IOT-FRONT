@@ -1,4 +1,4 @@
-import { signInWithGoogle, signIn } from "../config/auth";
+import { signInWithGoogle } from "../config/auth";
 
 export default function SignUpMenu() {
   return (

@@ -8,10 +8,7 @@ export default function Welcoming() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(
-          ""
-          //"https://perenual.com/api/species-list?key=sk-zr6e65a4146a284b33778"
-        );
+        const res = await fetch("");
         if (!res.ok) {
           return;
         }

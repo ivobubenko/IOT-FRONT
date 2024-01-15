@@ -2,7 +2,7 @@ import React from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../config/firebase";
 
-const LogoutButton = () => {
+const LogoutButton = React.forwardRef((props, ref) => {
   const logOut = async () => {
     try {
       await signOut(auth);
@@ -19,6 +19,6 @@ const LogoutButton = () => {
       Log Out
     </button>
   );
-};
+});
 
 export default LogoutButton;

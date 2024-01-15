@@ -1,24 +1,14 @@
 // UserContext.js
 import "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { getUserDevices } from "../components/api/get-devices";
 import { auth } from "../config/firebase";
+import { addDeviceAPI, getUserDevices } from "./api";
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [devices, setDevices] = useState([
-    /*
-    { name: "plant" },
-    { name: "plant2" },
-    { name: "plant3" },
-    { name: "plant4" },
-    { name: "plantasdfasdfadsfadsfa5" },
-    { name: "plant6" },
-    { name: "plant7" },
-*/
-  ]);
+  const [devices, setDevices] = useState([]);
 
   const [showedDevice, setShowedDevice] = useState(0);
 
@@ -32,7 +22,7 @@ export const UserProvider = ({ children }) => {
     // Clean up the observer when the component unmounts
 
     return () => unsubscribe();
-  }, [user]);
+  }, []);
 
   useEffect(() => {
     const fetchDevices = async () => {
@@ -55,9 +45,14 @@ export const UserProvider = ({ children }) => {
   const changeDevice = (number) => {
     setShowedDevice(number);
   };
+  const addDevice = async (device) => {
+    addDeviceAPI(device);
+  };
 
   return (
-    <UserContext.Provider value={{ user, devices, changeDevice, showedDevice }}>
+    <UserContext.Provider
+      value={{ user, devices, changeDevice, showedDevice, addDevice }}
+    >
       {children}
     </UserContext.Provider>
   );

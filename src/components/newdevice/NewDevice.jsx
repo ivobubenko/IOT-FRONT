@@ -1,7 +1,11 @@
 import { useState } from "react";
-import { addDevice } from "./api";
+import { useNavigate } from "react-router-dom";
+
+import { useUser } from "../../context/UserContext";
 
 export default function NewDevice() {
+  const { changeDevice, devices, addDevice } = useUser();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     deviceId: "",
@@ -18,8 +22,15 @@ export default function NewDevice() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // Call your addDevice function with formData
-    addDevice(formData);
+    if (addDevice(formData) === "false") {
+      alert("Something went wrong");
+      return;
+    }
+    //console.log("success");
+    changeDevice(devices.length - 1);
+    navigate("/dashboard");
   };
 
   return (
