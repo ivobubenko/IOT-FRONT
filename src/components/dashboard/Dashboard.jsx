@@ -11,7 +11,7 @@ import DeviceList from "./DeviceList";
 import Pagination from "./Pagination";
 
 export default function Dashboard() {
-  const { devices } = useUser();
+  const { devices, user } = useUser();
   return (
     <>
       <div className="flex mx-auto max-w-7xl py-5 min-h-96 max-h-[70vh]">
@@ -51,7 +51,7 @@ export default function Dashboard() {
             {devices ? (
               <Outlet />
             ) : (
-              <div className="mx-auto h-full text-9xl font-semibold ">{`No devices yet :(`}</div>
+              <div className="mx-auto h-full text-9xl font-semibold ">{`${user?.given_name}you have no devices yet :(`}</div>
             )}
           </div>
         </div>
