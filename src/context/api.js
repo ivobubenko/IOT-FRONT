@@ -99,7 +99,7 @@ export const loadDeviceApi = async (device) => {
   }
 };
 
-export const connectToDevice = async (uid, deviceId) => {
+export const connectToDeviceApi = async (uid, deviceId) => {
   try {
     const response = await fetch(
       `https://iot-server-o8j2.onrender.com/connectdevice/${uid}/${deviceId}`

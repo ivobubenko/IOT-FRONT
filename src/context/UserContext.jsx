@@ -1,4 +1,5 @@
 // UserContext.js
+import { async } from "@firebase/util";
 import "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../config/firebase";
@@ -7,6 +8,7 @@ import {
   getUserDevices,
   removeDeviceApi,
   loadDeviceApi,
+  connectToDeviceApi,
 } from "./api";
 
 const UserContext = createContext();
@@ -86,6 +88,10 @@ export const UserProvider = ({ children }) => {
     return "Failed";
   };
 
+  const connectDevice = async () => {
+    connectToDeviceApi(user.uid, devices[showedDevice].id);
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -97,6 +103,7 @@ export const UserProvider = ({ children }) => {
         removeDevice,
         deviceData,
         loading,
+        connectDevice,
       }}
     >
       {children}

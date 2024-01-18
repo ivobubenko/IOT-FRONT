@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { connectToDeviceApi } from "../../context/api";
 export default function ConnectToDevice() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function ConnectToDevice() {
     e.preventDefault();
 
     try {
+      connectToDeviceApi();
       navigate("/dashboard");
     } catch (error) {
       console.error("Error fetching user devices:", error);
