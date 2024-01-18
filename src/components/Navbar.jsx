@@ -71,9 +71,9 @@ export default function Navigation() {
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => (
-                <Link
+                <Disclosure.Button
                   key={item.name}
-                  as="a"
+                  as={Link}
                   to={item.to}
                   className={classNames(
                     item.current
@@ -84,7 +84,7 @@ export default function Navigation() {
                   aria-current={item.current ? "page" : undefined}
                 >
                   {item.name}
-                </Link>
+                </Disclosure.Button>
               ))}
             </div>
           </Disclosure.Panel>
