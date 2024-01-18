@@ -5,8 +5,8 @@ import { useUser } from "../../context/UserContext";
 import Spinner from "../errors/Spinner";
 
 export default function NewDevice() {
-  const { addDevice } = useUser();
-  const [loading, setLoading] = useState(false);
+  const { addDevice, loading } = useUser();
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -26,9 +26,7 @@ export default function NewDevice() {
     e.preventDefault();
 
     try {
-      setLoading(true);
-      await addDevice(formData);
-      setLoading(false);
+      addDevice(formData);
       navigate("/dashboard");
     } catch (error) {
       console.error("Error fetching user devices:", error);
@@ -77,8 +75,8 @@ export default function NewDevice() {
                   id="deviceId"
                   name="deviceId"
                   required
-                  maxLength="4"
-                  minLength="4"
+                  maxLength="6"
+                  minLength="6"
                   value={formData.deviceId}
                   onChange={handleInputChange}
                   className="text-xl text-center block w-full text-xl md:px-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"

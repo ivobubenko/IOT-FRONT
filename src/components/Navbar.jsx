@@ -7,8 +7,8 @@ import LoggedUser from "./LoggedUser";
 const navigation = [
   { name: "Dashboard", to: "/dashboard", current: false },
   { name: "Team", to: "/team", current: false },
-  { name: "New device", to: "/newDevice", current: false },
-  { name: "Calendar", to: "/calendar", current: false },
+  { name: "Add new device", to: "/newDevice", current: false },
+  { name: "Connect to device", to: "/connectDevice", current: false },
 ];
 
 function classNames(...classes) {

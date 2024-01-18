@@ -14,6 +14,7 @@ import NewDevice from "./components/newdevice/NewDevice";
 import LandingPage from "./loginpage/LandingPage";
 import { auth } from "./config/firebase";
 import Welcoming from "./components/welcoming/Welcoming";
+import ConnectToDevice from "./components/connect/ConnectToDevice";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -44,6 +45,7 @@ function App() {
               </Route>
               <Route path="/team" element={<Team />} />
               <Route path="/newDevice" element={<NewDevice />} />
+              <Route path="/connectDevice" element={<ConnectToDevice />} />
             </Routes>
           </div>
         </BrowserRouter>
