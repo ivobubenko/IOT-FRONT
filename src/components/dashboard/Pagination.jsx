@@ -13,9 +13,9 @@ export default function Pagination() {
     changeDevice(showedDevice - 1 < 0 ? devices.length - 1 : showedDevice - 1);
   };
   const active =
-    "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 px-2 rounded ";
+    "z-10 bg-currentDevice text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:bg-currentDevice px-2 rounded ";
   const notActive =
-    "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0 px-2.5";
+    "text-gray-900 ring-1 ring-inset ring-gray-300 rounded hover:bg-gray-50 focus:outline-offset-0 px-2.5";
 
   return (
     <div className="bg-teal-50 md:justify-between">
