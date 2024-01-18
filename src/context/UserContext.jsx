@@ -28,17 +28,17 @@ export const UserProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
-
+  const loadDevices = async (uid) => {
+    setLoading(true);
+    const userData = await getUserDevices(uid);
+    const devicesArr = userData.devices;
+    setDevices(devicesArr);
+    setLoading(false);
+  };
   useEffect(() => {
     const fetchDevices = async () => {
       if (user) {
-        try {
-          setLoading(true);
-          const userData = await getUserDevices(user.uid);
-          const devicesArr = userData.devices;
-          setDevices(devicesArr);
-          setLoading(false);
-        } catch (error) {}
+        await loadDevices(user.uid);
       }
     };
 
@@ -88,8 +88,11 @@ export const UserProvider = ({ children }) => {
     return "Failed";
   };
 
-  const connectDevice = async () => {
-    connectToDeviceApi(user.uid, devices[showedDevice].id);
+  const connectDevice = async (deviceId) => {
+    await connectToDeviceApi(user.uid, deviceId);
+    await loadDevices(user.uid);
+
+    setShowedDevice(devices.findIndex((d) => d.id === deviceId) ?? 0);
   };
 
   return (

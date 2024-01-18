@@ -77,15 +77,12 @@ export const removeDeviceApi = async (uid, deviceId) => {
   );
   const result = await response.json();
   console.log(result);
+
   return result;
 };
 
-const cache = new Map();
 export const loadDeviceApi = async (device) => {
-  if (cache.has(device)) {
-    console.log("Saved from cache");
-    return cache.get(device);
-  } else if (!device) {
+  if (!device) {
     console.log("Not found");
     return "Not Found";
   } else {
@@ -94,7 +91,7 @@ export const loadDeviceApi = async (device) => {
         resolve([` hi ${device.name}`]);
       }, 500);
     });
-    cache.set(device, deviceData);
+
     return deviceData;
   }
 };
@@ -105,6 +102,7 @@ export const connectToDeviceApi = async (uid, deviceId) => {
       `https://iot-server-o8j2.onrender.com/connectdevice/${uid}/${deviceId}`
     );
     const result = await response.json();
+    console.log(result);
     return result;
   } catch (e) {
     return { Failed: e.message };
