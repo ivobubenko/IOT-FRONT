@@ -1,5 +1,5 @@
 // UserContext.js
-import { async } from "@firebase/util";
+
 import "firebase/auth";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { auth } from "../config/firebase";
@@ -91,8 +91,9 @@ export const UserProvider = ({ children }) => {
   const connectDevice = async (deviceId) => {
     await connectToDeviceApi(user.uid, deviceId);
     await loadDevices(user.uid);
+    const index = devices.findIndex((d) => d.id === deviceId);
 
-    setShowedDevice(devices.findIndex((d) => d.id === deviceId) ?? 0);
+    setShowedDevice(index !== -1 ? index : 0);
   };
 
   return (

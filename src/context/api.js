@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { auth } from "../config/firebase";
 export const addDeviceAPI = async (device) => {
   console.log(device);
@@ -89,7 +88,7 @@ export const loadDeviceApi = async (device) => {
     const deviceData = new Promise((resolve) => {
       setTimeout(() => {
         resolve([` hi ${device.name}`]);
-      }, 500);
+      }, 100);
     });
 
     return deviceData;

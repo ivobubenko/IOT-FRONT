@@ -4,7 +4,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Navigation from "./components/Navbar";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Team from "./components/team/Team";
-import DashboardContent from "./components/dashboard/DashboardContent";
+import Overview from "./components/dashboard/Overview";
 import Analytics from "./components/dashboard/Analytics";
 import Reports from "./components/dashboard/Reports";
 import Settings from "./components/dashboard/Settings";
@@ -38,7 +38,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Welcoming />} />
               <Route path="/dashboard" element={<Dashboard />}>
-                <Route path="" element={<DashboardContent />} />
+                <Route path="" element={<Overview />} />
                 <Route path="analytics" element={<Analytics />} />
                 <Route path="reports" element={<Reports />} />
                 <Route path="settings" element={<Settings />} />

@@ -32,7 +32,7 @@ export default function Dashboard() {
   return (
     <>
       <div className="flex mx-auto max-w-7xl py-5 min-h-96 max-h-[70vh]">
-        <div className="container mx-auto border-solid min-[320px]:w-screen rounded max-w-5xl border-2 border-grey-200">
+        <div className="container mx-auto border-solid min-[320px]:w-screen rounded max-w-5xl border-2 border-grey-200 overflow-auto ">
           <div className="flex justify-around w-full border border-x-2  divide-x">
             <Link
               to="/dashboard"
@@ -64,7 +64,7 @@ export default function Dashboard() {
               <Cog6ToothIcon className="h-6 w-6" aria-hidden="true" />
             </Link>
           </div>
-          <div className="h-full">
+          <div className="flex flex-wrap overflow-auto ">
             {loading ? <Spinner /> : outputComponent()}
           </div>
         </div>
