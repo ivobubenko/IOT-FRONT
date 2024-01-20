@@ -47,25 +47,25 @@ export default function Welcoming() {
             ))}
           </dl>
         </div>
-        <div className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8 ">
           <img
-            src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-01.jpg"
-            alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
+            src={process.env.PUBLIC_URL + "pot_1.png"}
+            alt="Pot 1"
+            className="rounded-lg bg-gray-100 "
+          />
+          <img
+            src={process.env.PUBLIC_URL + "pot_2.png"}
+            alt="Pot 2"
             className="rounded-lg bg-gray-100"
           />
           <img
-            src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg"
-            alt="Top down view of walnut card tray with embedded magnets and card groove."
+            src={process.env.PUBLIC_URL + "pot_3.png"}
+            alt="Pot 3"
             className="rounded-lg bg-gray-100"
           />
           <img
-            src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-03.jpg"
-            alt="Side of walnut card tray with card groove and recessed card area."
-            className="rounded-lg bg-gray-100"
-          />
-          <img
-            src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg"
-            alt="Walnut card tray filled with cards and card angled in dedicated groove."
+            src={process.env.PUBLIC_URL + "pot_4.png"}
+            alt="Pot 4"
             className="rounded-lg bg-gray-100"
           />
         </div>

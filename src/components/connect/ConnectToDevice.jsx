@@ -5,7 +5,7 @@ import Spinner from "../errors/Spinner";
 import { useUser } from "../../context/UserContext";
 
 export default function ConnectToDevice() {
-  const { loading, connectDevice } = useUser();
+  const { loadingDevices, connectDevice } = useUser();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     deviceId: "",
@@ -30,7 +30,7 @@ export default function ConnectToDevice() {
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm px-2 rounded md:w-full ">
         <div className="bg-grey-500 border-[1px] py-1.5 px-1.5 rounded">
           <div className="mx-auto">
-            {loading ? (
+            {loadingDevices ? (
               <Spinner />
             ) : (
               <form className="mt-2 py-6" onSubmit={handleSubmit}>

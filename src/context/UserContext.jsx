@@ -1,7 +1,13 @@
 // UserContext.js
 
 import "firebase/auth";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { auth } from "../config/firebase";
 import {
   addDeviceAPI,
@@ -9,6 +15,7 @@ import {
   removeDeviceApi,
   loadDeviceApi,
   connectToDeviceApi,
+  changeNameApi,
 } from "./api";
 
 const UserContext = createContext();
@@ -17,7 +24,9 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [devices, setDevices] = useState([]);
   const [deviceData, setDeviceData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // Use more granular loading states
+  const [loadingDevices, setLoadingDevices] = useState(false);
+  const [loadingDeviceData, setLoadingDeviceData] = useState(false);
 
   const [showedDevice, setShowedDevice] = useState(0);
 
@@ -28,12 +37,19 @@ export const UserProvider = ({ children }) => {
 
     return () => unsubscribe();
   }, []);
+
+  // Example of error handling
   const loadDevices = async (uid) => {
-    setLoading(true);
-    const userData = await getUserDevices(uid);
-    const devicesArr = userData.devices;
-    setDevices(devicesArr);
-    setLoading(false);
+    try {
+      setLoadingDevices(true);
+      const userData = await getUserDevices(uid);
+      setDevices(userData.devices);
+    } catch (error) {
+      console.error("Failed to load devices:", error);
+      // Handle error appropriately
+    } finally {
+      setLoadingDevices(false);
+    }
   };
   useEffect(() => {
     const fetchDevices = async () => {
@@ -45,37 +61,48 @@ export const UserProvider = ({ children }) => {
     fetchDevices();
   }, [user]);
 
+  // Only load device data when showedDevice changes
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
-      setDeviceData(await loadDeviceApi(devices[showedDevice]));
-      setLoading(false);
+      try {
+        setLoadingDeviceData(true);
+        setDeviceData(await loadDeviceApi(devices[showedDevice]));
+      } catch (error) {
+        console.error("Failed to load device data:", error);
+        // Handle error appropriately
+      } finally {
+        setLoadingDeviceData(false);
+      }
     };
-    fetchData();
+
+    if (devices.length > 0) {
+      fetchData();
+    }
   }, [devices, showedDevice]);
 
   ///
-  const changeDevice = async (number) => {
+  // Use useCallback to memoize functions
+  const changeDevice = useCallback(async (number) => {
     setShowedDevice(number);
-  };
+  }, []);
   ///
   const removeDevice = async () => {
     //console.log(user, devices[showedDevice]);
     const uid = user.uid;
     const deviceId = devices[showedDevice].id;
-    setLoading(true);
+    setLoadingDevices(true);
     const response = await removeDeviceApi(uid, deviceId);
     setDevices(response.updatedDevices);
-    setLoading(false);
+    setLoadingDevices(false);
     response.success && setShowedDevice(0);
     return response;
   };
 
   ///
   const addDevice = async (device) => {
-    setLoading(true);
+    setLoadingDevices(true);
     const newDevices = await addDeviceAPI(device);
-    setLoading(false);
+    setLoadingDevices(false);
     if (newDevices.message === "Device added") {
       setDevices(newDevices.devices);
 
@@ -96,6 +123,10 @@ export const UserProvider = ({ children }) => {
     setShowedDevice(index !== -1 ? index : 0);
   };
 
+  const changeDeviceName = async (newName) => {
+    await changeNameApi(user.uid, devices[showedDevice].id, newName);
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -106,8 +137,10 @@ export const UserProvider = ({ children }) => {
         addDevice,
         removeDevice,
         deviceData,
-        loading,
+        loadingDeviceData,
+        loadingDevices,
         connectDevice,
+        changeDeviceName,
       }}
     >
       {children}

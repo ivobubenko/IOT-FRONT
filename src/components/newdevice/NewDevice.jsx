@@ -5,7 +5,7 @@ import { useUser } from "../../context/UserContext";
 import Spinner from "../errors/Spinner";
 
 export default function NewDevice() {
-  const { addDevice, loading } = useUser();
+  const { addDevice, loadingDevices } = useUser();
 
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ export default function NewDevice() {
               alt="futuristic pot"
             />
           </div>
-          {!loading ? (
+          {!loadingDevices ? (
             <form onSubmit={handleSubmit}>
               <div className="mt-2 py-6">
                 <label

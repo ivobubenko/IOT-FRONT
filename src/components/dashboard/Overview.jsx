@@ -1,18 +1,13 @@
 import { useUser } from "../../context/UserContext";
+import Spinner from "../errors/Spinner";
 
-export default function DashboardContent() {
-  const { devices, showedDevice } = useUser();
+export default function Overview() {
+  const { devices, showedDevice, loadingDeviceData } = useUser();
 
-  return (
-    /*
-    <div className="w-full text-9xl font-semibold ">
-      <h1 className="font-semibold  py-2 border-b-2">
-        {devices[showedDevice]?.name}
-      </h1>
-    </div>
-  );*/
-
-    <div className="w-full p-5">
+  return loadingDeviceData ? (
+    <Spinner />
+  ) : (
+    <div className="w-full p-5 h-full">
       <h1 className="text-2xl font-semibold text-center text-gray-700 mb-4">
         {devices[showedDevice]?.name}
       </h1>

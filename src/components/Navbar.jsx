@@ -38,7 +38,7 @@ export default function Navigation() {
                 <Link to="/" className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src={require("../static/logo.png")}
+                    src={process.env.PUBLIC_URL + "logo.png"}
                     alt="Smart-Pot"
                   />
                 </Link>

@@ -1,109 +1,83 @@
 import { auth } from "../config/firebase";
-export const addDeviceAPI = async (device) => {
-  console.log(device);
 
+const API_BASE_URL = "https://iot-server-o8j2.onrender.com";
+
+// Centralized API call function
+async function makeApiCall(url, options = {}) {
   try {
-    console.log(device);
-    const ownerId = auth.currentUser.uid;
-
-    const response = await fetch(
-      "https://iot-server-o8j2.onrender.com/newdevice",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-
-        body: JSON.stringify({
-          name: device.name,
-          plant: device.selectedPlant,
-          id: device.deviceId,
-          ownerId: ownerId,
-        }),
-      }
-    );
-
-    const result = await response.json();
-    console.log(result);
-    return result;
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
   } catch (error) {
-    console.error("Error registering device:", error);
-    return "false";
+    console.error("API call failed:", error);
+    throw error; // rethrow the error to be handled by the calling function
   }
+}
+
+export const addDeviceAPI = async (device) => {
+  const ownerId = auth.currentUser.uid;
+  const body = JSON.stringify({
+    name: device.name,
+    plant: device.selectedPlant,
+    id: device.deviceId,
+    ownerId: ownerId,
+  });
+
+  return await makeApiCall(`${API_BASE_URL}/newdevice`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer your-bearer-token-here`, // Replace with secure token retrieval
+    },
+    body: body,
+  });
 };
-//bearer token: htTeTaXThUkLYdy7nSvzM3zY
 
 export async function getUserDevices() {
-  let userData;
-  try {
-    const ownerId = auth.currentUser.uid;
-    const response = await fetch(
-      `https://iot-server-o8j2.onrender.com/getdevices/${ownerId}`
-    );
-
-    userData = await response.json();
-  } catch (e) {
-    throw new Error();
-  }
-  return userData;
+  const ownerId = auth.currentUser.uid;
+  return await makeApiCall(`${API_BASE_URL}/getdevices/${ownerId}`);
 }
 
 export const registerUser = async (user) => {
-  try {
-    //console.log(user);
-    const response = await fetch("https://iot-server-o8j2.onrender.com/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        acessToken: user.accessToken,
-        email: user.email,
-        uid: user.uid,
-      }),
-    });
+  const body = JSON.stringify({
+    acessToken: user.accessToken, // There's a typo here, should it be "accessToken"?
+    email: user.email,
+    uid: user.uid,
+  });
 
-    const result = await response.json();
-    console.log(result);
-  } catch (error) {
-    console.error("Error registering user:", error);
-  }
+  return await makeApiCall(`${API_BASE_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body,
+  });
 };
 
 export const removeDeviceApi = async (uid, deviceId) => {
-  const response = await fetch(
-    `https://iot-server-o8j2.onrender.com/deletedevice/${uid}/${deviceId}`
-  );
-  const result = await response.json();
-  console.log(result);
-
-  return result;
+  return await makeApiCall(`${API_BASE_URL}/deletedevice/${uid}/${deviceId}`);
 };
 
 export const loadDeviceApi = async (device) => {
   if (!device) {
-    console.log("Not found");
-    return "Not Found";
-  } else {
-    const deviceData = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve([` hi ${device.name}`]);
-      }, 100);
-    });
-
-    return deviceData;
+    throw new Error("Device not found");
   }
+  // Simulated API call, replace with a real API call if needed
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve([` hi ${device.name}`]);
+    }, 100);
+  });
 };
 
 export const connectToDeviceApi = async (uid, deviceId) => {
-  try {
-    const response = await fetch(
-      `https://iot-server-o8j2.onrender.com/connectdevice/${uid}/${deviceId}`
-    );
-    const result = await response.json();
-    console.log(result);
-    return result;
-  } catch (e) {
-    return { Failed: e.message };
-  }
+  return await makeApiCall(`${API_BASE_URL}/connectdevice/${uid}/${deviceId}`);
+};
+
+export const changeNameApi = async (deviceId, uid, newName) => {
+  return await makeApiCall(
+    `${API_BASE_URL}/changedevicename/${uid}/${deviceId}${newName}`
+  );
 };

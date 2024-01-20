@@ -12,7 +12,7 @@ import Pagination from "./Pagination";
 import Spinner from "../errors/Spinner";
 
 export default function Dashboard() {
-  const { devices, user, loading } = useUser();
+  const { devices, user, loadingDevices } = useUser();
 
   const hasDevices = () => {
     const oneEmpty = !!(devices.length === 1 && !devices[0].name);
@@ -64,8 +64,8 @@ export default function Dashboard() {
               <Cog6ToothIcon className="h-6 w-6" aria-hidden="true" />
             </Link>
           </div>
-          <div className="flex flex-wrap overflow-auto ">
-            {loading ? <Spinner /> : outputComponent()}
+          <div className="flex flex-wrap overflow-auto h-full">
+            {loadingDevices ? <Spinner /> : outputComponent()}
           </div>
         </div>
         <div className="container border-solid w-full rounded border-2 border-grey-200  max-w-60 overflow-auto hidden sm:inline">
