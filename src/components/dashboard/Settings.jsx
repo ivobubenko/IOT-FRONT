@@ -5,15 +5,14 @@ import Spinner from "../errors/Spinner";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Settings() {
-  const { removeDevice, changeDeviceName } = useUser(); // Assuming updateDeviceName is a function in your context
-  const [loading, setLoading] = useState(false);
+  const { removeDevice, changeDeviceName, loadingDeviceData } = useUser(); // Assuming updateDeviceName is a function in your context
+
   const [deviceName, setDeviceName] = useState(""); // New state for device name
   const navigate = useNavigate();
 
   const handleDelete = async () => {
-    setLoading(true);
     const resp = await removeDevice();
-    setLoading(false);
+
     if (!resp.success) {
       alert(resp.message);
     } else {
@@ -27,20 +26,12 @@ export default function Settings() {
       alert("Please enter a valid name.");
       return;
     }
-    setLoading(true);
-    const resp = await changeDeviceName(deviceName);
-    setLoading(false);
-    if (!resp.success) {
-      alert(resp.message);
-    } else {
-      alert("Name updated successfully!");
-      setDeviceName(""); // Clear the input field
-    }
+    //console.log(await changeDeviceName(deviceName));
   };
 
   return (
     <div className=" py-6 flex flex-col mx-auto items-center justify-center space-y-4">
-      {loading ? (
+      {loadingDeviceData ? (
         <Spinner />
       ) : (
         <>

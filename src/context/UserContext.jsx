@@ -124,7 +124,15 @@ export const UserProvider = ({ children }) => {
   };
 
   const changeDeviceName = async (newName) => {
-    await changeNameApi(user.uid, devices[showedDevice].id, newName);
+    setLoadingDeviceData(true);
+    const resp = await changeNameApi(
+      user.uid,
+      devices[showedDevice].id,
+      newName
+    );
+    console.log(user.uid, devices[showedDevice].id, newName);
+    setLoadingDeviceData(false);
+    return resp;
   };
 
   return (

@@ -78,6 +78,6 @@ export const connectToDeviceApi = async (uid, deviceId) => {
 
 export const changeNameApi = async (deviceId, uid, newName) => {
   return await makeApiCall(
-    `${API_BASE_URL}/changedevicename/${uid}/${deviceId}${newName}`
+    `${API_BASE_URL}/changedevicename/${uid}/${deviceId}/${newName}`
   );
 };
