@@ -130,7 +130,7 @@ export const UserProvider = ({ children }) => {
       devices[showedDevice].id,
       newName
     );
-    console.log(user.uid, devices[showedDevice].id, newName);
+    await loadDevices(user.uid);
     setLoadingDeviceData(false);
     return resp;
   };

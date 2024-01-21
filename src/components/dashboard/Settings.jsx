@@ -26,7 +26,8 @@ export default function Settings() {
       alert("Please enter a valid name.");
       return;
     }
-    //console.log(await changeDeviceName(deviceName));
+    console.log(await changeDeviceName(deviceName));
+    navigate("/dashboard");
   };
 
   return (
