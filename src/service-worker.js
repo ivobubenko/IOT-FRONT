@@ -89,23 +89,20 @@ self.addEventListener("fetch", (event) => {
           }
           return response;
         })
-        .catch(() => {
+        .catch((e) => {
           // Network error or other issues
+          console.error(e);
         })
     );
   }
 });
 
 self.addEventListener("push", (event) => {
-  let data = { title: "New message", body: "You have a new message!" };
-  if (event.data) {
-    data = event.data.json();
-  }
-
-  const options = {
-    body: data.body,
-    // You can add more options like icons, images, actions, etc.
-  };
-
-  event.waitUntil(self.registration.showNotification(data.title, options));
+  let { title, body, icon } = event.data.json();
+  if (!title) title = "New Notification";
+  if (!body) return;
+  self.registration.showNotification(title, {
+    body,
+    icon: icon || `${process.env.PUBLIC_URL}/logo192.png`,
+  });
 });
