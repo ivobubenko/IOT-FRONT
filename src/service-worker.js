@@ -95,3 +95,17 @@ self.addEventListener("fetch", (event) => {
     );
   }
 });
+
+self.addEventListener("push", (event) => {
+  let data = { title: "New message", body: "You have a new message!" };
+  if (event.data) {
+    data = event.data.json();
+  }
+
+  const options = {
+    body: data.body,
+    // You can add more options like icons, images, actions, etc.
+  };
+
+  event.waitUntil(self.registration.showNotification(data.title, options));
+});
