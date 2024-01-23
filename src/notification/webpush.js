@@ -2,9 +2,10 @@ async function sendSubscribeToServer(subscribe, uid) {
   const API_BASE_URL = "https://iot-server-o8j2.onrender.com/sendSubscription";
 
   const body = JSON.stringify({
-    subscribe,
-    uid,
+    uid: uid,
+    subscription: subscribe,
   });
+  console.log(body);
   const options = {
     method: "POST",
     headers: {
@@ -15,13 +16,12 @@ async function sendSubscribeToServer(subscribe, uid) {
   const response = await fetch(API_BASE_URL, options);
   console.log(response);
 }
-async function sendUnSubscribeToServer(subscribe, uid) {
+async function sendUnSubscribeToServer(uid) {
   const API_BASE_URL =
     "https://iot-server-o8j2.onrender.com/sendUnsubscription";
 
   const body = JSON.stringify({
-    subscribe,
-    uid,
+    uid: uid,
   });
   const options = {
     method: "POST",
@@ -45,20 +45,21 @@ class WebPushService {
 
   static async getSubscription(uid) {
     return await navigator.serviceWorker.ready.then(async (registration) => {
-      return await registration.pushManager.getSubscription();
+      return await registration.pushManager.getSubscription(uid);
     });
   }
 
   static async subscribe(uid) {
+    console.log("debug1", uid);
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey:
         "BOF5vD11z7CHvvdAUFMWCt2qDjUk5ou8CEbWLbCmcoIVpoZQRbrlafPJ1LafQJiyQtpoV49DBQBzYba7aq8kGeA", //process.env.REACT_APP_VAPID_PUBLIC_KEY,
     });
-    console.log("debug2", subscription);
+    console.log("debug2", subscription, uid);
     //console.log(uid, subscription);
-    sendSubscribeToServer(subscription, uid);
+    await sendSubscribeToServer(subscription, uid);
 
     return subscription;
   }
@@ -69,7 +70,7 @@ class WebPushService {
     if (subscription) {
       await subscription.unsubscribe();
     }
-    sendUnSubscribeToServer(subscription, uid);
+    await sendUnSubscribeToServer(uid);
     return subscription;
   }
 }

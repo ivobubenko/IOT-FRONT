@@ -71,7 +71,7 @@ export default function Navigation() {
                   </div>
                 </div>
               </div>
-              <NotificationSettingsGroup />
+
               <div className="w-auto h-full absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div id="notification-container">
                   <button

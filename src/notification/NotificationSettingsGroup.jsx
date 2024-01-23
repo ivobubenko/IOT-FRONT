@@ -17,8 +17,9 @@ export const handleSubscribeClick = async (user) => {
 import WebPushService from "./webpush";
 import { useState } from "react";
 import { useUser } from "../context/UserContext";
+import React from "react";
 
-export default function NotificationSettingsGroup() {
+const NotificationSettingsGroup = React.forwardRef((props, ref) => {
   const [push, setPush] = useState(false);
   const { user } = useUser();
 
@@ -29,7 +30,7 @@ export default function NotificationSettingsGroup() {
       if (!checked) {
         const payload = await WebPushService.unsubscribe(user.uid);
         if (payload) {
-          await WebPushService.unsubscribe(payload, user.uid); // server
+          await WebPushService.unsubscribe(user.uid); // server
         }
         return;
       }
@@ -37,13 +38,13 @@ export default function NotificationSettingsGroup() {
       if (!WebPushService.hasPermission()) {
         await WebPushService.requestPermission();
       }
-      console.log("debug3", await WebPushService.getSubscription(user.uid));
+      // console.log("debug3", await WebPushService.getSubscription(user.uid));
       let subscription = await WebPushService.getSubscription(user.uid);
       console.log("debug4", subscription);
       if (!subscription) {
         subscription = await WebPushService.subscribe(user.uid);
       }
-      await WebPushService.subscribe(subscription, user.uid); // server
+      await WebPushService.subscribe(user.uid); // server
       console.log("Subscribed to web push");
     } catch (error) {
       setPush(!checked);
@@ -53,11 +54,12 @@ export default function NotificationSettingsGroup() {
 
   return (
     <section>
-      <h2>Notifications</h2>
-      <div>
-        <p>Web Push</p>
+      <div className="block px-4 py-2 w-full text-sm text-gray-700 text-center flex mx-auto">
+        Notifications
         <input type="checkbox" checked={push} onChange={handlePushChange} />
       </div>
     </section>
   );
-}
+});
+
+export default NotificationSettingsGroup;
