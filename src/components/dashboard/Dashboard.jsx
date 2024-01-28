@@ -32,8 +32,8 @@ export default function Dashboard() {
   return (
     <>
       <div className="flex mx-auto max-w-7xl py-5 min-h-96 max-h-[70vh]">
-        <div className="container mx-auto border-solid min-[320px]:w-screen rounded max-w-5xl border-2 border-grey-200 overflow-auto ">
-          <div className="flex justify-around w-full border border-x-2  divide-x">
+        <div className="flex flex-col mx-auto border-solid min-[320px]:w-screen rounded max-w-5xl border-2 border-grey-200 overflow-auto ">
+          <div className="flex flex-row justify-around w-full border border-x-2  divide-x">
             <Link
               to="/dashboard"
               className="px-4 py-2 text-black  flex justify-center w-full hover:bg-slate-400"
@@ -64,7 +64,7 @@ export default function Dashboard() {
               <Cog6ToothIcon className="h-6 w-6" aria-hidden="true" />
             </Link>
           </div>
-          <div className="flex flex-wrap overflow-auto h-full">
+          <div className="flex flex-row overflow-auto h-full">
             {loadingDevices ? <Spinner /> : outputComponent()}
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function Dashboard() {
           </ul>
         </div>
       </div>
-      <div className="flex mx-auto justify-center sm:hidden ">
+      <div className="flex flex-row mx-auto justify-center sm:hidden ">
         <Pagination />
       </div>
     </>

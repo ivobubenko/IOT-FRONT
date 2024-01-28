@@ -12,7 +12,7 @@ export default function DeviceList({ id, device }) {
           <div
             className={`flex justify-items-stretch text-left py-2 px-2 ${
               showedDevice === id ? "bg-currentDevice" : ""
-            } bg-opacity-10 space-x-4 truncate border-b-2`}
+            } bg-opacity-10 space-x-4 truncate border-b-2 `}
           >
             <div className="justify-self-start min-w-12 min-h-12">
               <img

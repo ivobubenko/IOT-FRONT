@@ -1,28 +1,39 @@
 import { useUser } from "../../context/UserContext";
 import Spinner from "../errors/Spinner";
+import Icon from "../Icon";
 
 export default function Overview() {
   const { devices, showedDevice, loadingDeviceData } = useUser();
 
+  /*<div class="absolute top-0 -z-10 h-full w-full bg-white"><div class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div></div>*/
   return loadingDeviceData ? (
     <Spinner />
   ) : (
-    <div className="w-full p-5 h-full">
-      <h1 className="text-2xl font-semibold text-center text-gray-700 mb-4">
-        {devices[showedDevice]?.name}
-      </h1>
-      <div className="flex items-center justify-between">
-        <div className="flex flex-col items-center">
-          <span className="text-lg font-semibold">Temperature</span>
-          <span className="text-2xl font-bold">{10}°C</span>
+    <div className="flex flex-col w-full p-3 bg-gradient-to-r from-[#ccffeb]/60 to-[#ccfff5]/30">
+      <div className="flex w-full">
+        <h1 className="text-2xl font-semibold text-center text-gray-700 mb-4 w-full">
+          {devices[showedDevice]?.name}
+        </h1>
+      </div>
+
+      <div className="flex flex-row items-center justify-around h-full">
+        <div className="flex w-full h-full justify-around items-center hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-xl pr-4">
+          <div className="text-lg font-semibold px-2 hover:text-purple-500 transition-colors duration-300">
+            <Icon src="thermometer" alt="tmp" text=" " height="20" width="20" />
+            <span className="text-2xl font-bold">{10}°C</span>
+          </div>
         </div>
-        <div className="flex flex-col items-center">
-          <span className="text-lg font-semibold">Sun Exposure</span>
-          <span className="text-2xl font-bold">{2}%</span>
+        <div className="flex w-full h-full justify-around items-center hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-xl pr-4">
+          <div className="text-lg font-semibold px-2 hover:text-purple-500 transition-colors duration-300">
+            <Icon src="sun" alt="tmp" text=" " height="20" width="20" />
+            <span className="text-2xl font-bold">{2}%</span>
+          </div>
         </div>
-        <div className="flex flex-col items-center">
-          <span className="text-lg font-semibold">Humidity</span>
-          <span className="text-2xl font-bold">{0.4}%</span>
+        <div className="flex w-full h-full justify-around items-center hover:scale-105 transition-transform duration-300 ease-in-out hover:shadow-xl pr-4">
+          <div className="text-lg font-semibold px-2 hover:text-purple-500 transition-colors duration-300">
+            <Icon src="humidity" alt="tmp" text=" " height="20" width="20" />
+            <span className="text-2xl font-bold">{0.4}%</span>
+          </div>
         </div>
       </div>
     </div>
