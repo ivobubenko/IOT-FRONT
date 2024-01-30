@@ -26,14 +26,14 @@ export default function Navigation() {
 */
 
   return (
-    <Disclosure as="nav" className="bg-teal-50 md:justify-between">
+    <Disclosure as="nav" className="bg-teal-100 md:justify-between">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
-                <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-black hover:bg-gray-700 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <Disclosure.Button className="relative inline-flex items-center bg-gray-200 justify-center rounded-md p-2 text-black hover:bg-gray-50 hover:text-black focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
                   <span className="sr-only">Open main menu</span>
                   {open ? (
@@ -60,12 +60,12 @@ export default function Navigation() {
                         className={classNames(
                           item.current
                             ? "bg-gray-100 text-black"
-                            : "text-black hover:bg-gray-200 hover:text-black",
-                          "rounded-md px-3 py-2 text-sm font-medium"
+                            : "text-black hover:bg-teal-200 hover:text-black",
+                          "rounded-md  px-3 py-2 text-sm font-medium transition duration-300 ease-in-out transform hover:scale-105"
                         )}
                         aria-current={item.current ? "page" : undefined}
                       >
-                        {item.name}
+                        <h1>{item.name}</h1>
                       </Link>
                     ))}
                   </div>

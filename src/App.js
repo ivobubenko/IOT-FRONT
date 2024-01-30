@@ -15,6 +15,7 @@ import LandingPage from "./loginpage/LandingPage";
 import { auth } from "./config/firebase";
 import Welcoming from "./components/welcoming/Welcoming";
 import ConnectToDevice from "./components/connect/ConnectToDevice";
+import Footer from "./components/Footer";
 import {
   requestPermission,
   showNotification,
@@ -40,7 +41,6 @@ function App() {
         <BrowserRouter>
           <div className="App">
             <Navigation />
-
             <Routes>
               <Route path="/" element={<Welcoming />} />
               <Route path="/dashboard" element={<Dashboard />}>
@@ -54,6 +54,7 @@ function App() {
               <Route path="/connectDevice" element={<ConnectToDevice />} />
             </Routes>
           </div>
+          <Footer />
         </BrowserRouter>
       )}
     </UserProvider>

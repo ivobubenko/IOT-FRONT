@@ -68,7 +68,7 @@ export default function Settings() {
             </form>
           </div>
           <button
-            className="border bg-red-100 py-2 px-4 text-center rounded border-2 border-red-500 flex items-center justify-right"
+            className="border bg-red-100 py-2 px-4 text-center rounded border-2 border-red-500 hover:bg-red-200 flex items-center justify-right"
             onClick={handleDelete}
           >
             <TrashIcon className="w-6 h-6 mr-2" />
