@@ -7,7 +7,7 @@ export default function Icon({ src, alt, text, width = "6", height = "6" }) {
         src={process.env.PUBLIC_URL + `/Icons/${src}.png`}
         alt={alt}
       />
-      {text}
+      <h1 className="font-semibold hidden sm:inline"> {text}</h1>
     </div>
   );
 }

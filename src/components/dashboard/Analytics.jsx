@@ -1,27 +1,8 @@
 import { useUser } from "../../context/UserContext";
 import Icon from "../Icon";
+import { CalendarDaysIcon } from "@heroicons/react/24/outline";
 
 export default function Analytics() {
-  /*const data = {
-    temperature: 13,
-    humidity: 10,
-    sunIntensity: 0.5,
-    deppression: 100,
-  };
-  const data1 = {
-    temperature: 13,
-    humidity: 10,
-    sunIntensity: 0.5,
-    deppression: 100,
-  };
-  const data3 = {
-    temperature: 13,
-    humidity: 10,
-    sunIntensity: 0.5,
-    deppression: 100,
-  };
-  const dataArr = [data, data1, data3];*/
-
   const { deviceData } = useUser();
 
   const formatDate = (timestamp) => {
@@ -44,20 +25,25 @@ export default function Analytics() {
     return (
       <tr key={index}>
         <td className="border">{formatDate(data?.date)}</td>
-        <td className="border">{data?.temperature ?? "No data"}</td>
-        <td className="border">{data?.moisture?.toFixed(2) ?? "No data"}</td>
-        <td className="border">{data?.waterlevel ?? "No data"}</td>
+        <td className="border">{data?.temperature + "°C" ?? "No data"}</td>
+        <td className="border">
+          {data?.moisture?.toFixed(0) + "%" ?? "No data"}
+        </td>
+        <td className="border">
+          {data?.waterlevel?.toFixed(0) + "%" ?? "No data"}
+        </td>
       </tr>
     );
   });
 
+  // <Icon src="happiness" alt="happy" text="Date" />
   return (
     <div className="w-full">
       <table className="w-full">
         <thead>
           <tr className="bg-gray-100 border">
             <th>
-              <Icon src="happiness" alt="happy" text="Date" />
+              <Icon src="calendar" alt="date" text="Date" />
             </th>
             <th>
               <Icon src="thermometer" alt="tmp" text="Temperature" />

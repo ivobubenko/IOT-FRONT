@@ -10,7 +10,7 @@ import NotificationSettingsGroup from "../notification/NotificationSettingsGroup
 
 const navigation = [
   { name: "Dashboard", to: "/dashboard", current: false },
-  { name: "Team", to: "/team", current: false },
+
   { name: "Add new device", to: "/newDevice", current: false },
   { name: "Connect to device", to: "/connectDevice", current: false },
 ];

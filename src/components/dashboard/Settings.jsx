@@ -5,9 +5,9 @@ import Spinner from "../errors/Spinner";
 import { TrashIcon } from "@heroicons/react/24/outline";
 
 export default function Settings() {
-  const { removeDevice, changeDeviceName, loadingDeviceData } = useUser(); // Assuming updateDeviceName is a function in your context
+  const { removeDevice, changeDeviceName, loadingDeviceData } = useUser();
 
-  const [deviceName, setDeviceName] = useState(""); // New state for device name
+  const [deviceName, setDeviceName] = useState("");
   const navigate = useNavigate();
 
   const handleDelete = async () => {

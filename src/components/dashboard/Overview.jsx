@@ -39,7 +39,7 @@ export default function Overview() {
           <div className="text-lg font-semibold px-2 hover:text-purple-500 transition-colors duration-300 ">
             <Icon src="water-level" alt="tmp" text=" " height="20" width="20" />
             <span className="text-2xl font-bold">
-              {actualData?.waterlevel ?? "No data"}%
+              {actualData?.waterlevel.toFixed(0) ?? "No data"}%
             </span>
           </div>
         </div>
@@ -47,7 +47,7 @@ export default function Overview() {
           <div className="text-lg font-semibold px-2 hover:text-purple-500 transition-colors duration-300 ">
             <Icon src="humidity" alt="tmp" text=" " height="20" width="20" />
             <span className="text-2xl font-bold">
-              {actualData?.moisture?.toFixed(2) ?? "No data"}%
+              {actualData?.moisture?.toFixed(0) ?? "No data"}%
             </span>
           </div>
         </div>
