@@ -64,12 +64,7 @@ export const loadDeviceApi = async (device) => {
   if (!device) {
     throw new Error("Device not found");
   }
-  // Simulated API call, replace with a real API call if needed
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([` hi ${device.name}`]);
-    }, 100);
-  });
+  return await makeApiCall(`${API_BASE_URL}/get-data/${device.id}`);
 };
 
 export const connectToDeviceApi = async (uid, deviceId) => {

@@ -66,7 +66,10 @@ export const UserProvider = ({ children }) => {
     const fetchData = async () => {
       try {
         setLoadingDeviceData(true);
-        setDeviceData(await loadDeviceApi(devices[showedDevice]));
+
+        const data = await loadDeviceApi(devices[showedDevice]);
+        setDeviceData(data.deviceData);
+        console.log(deviceData);
       } catch (error) {
         console.error("Failed to load device data:", error);
         // Handle error appropriately

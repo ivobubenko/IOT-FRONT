@@ -16,7 +16,7 @@ export default function DeviceList({ id, device }) {
       return "fill-red-500";
     }
   };
-  console.log(calculateColor(battery));
+
   return (
     <li className="hover:bg-teal-200 " key={id} id={id}>
       <button className="w-full" onClick={handleClick}>
