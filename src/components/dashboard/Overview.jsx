@@ -8,7 +8,7 @@ export default function Overview() {
   const actualData =
     deviceData && deviceData.length > 0
       ? deviceData.reduce((prev, current) => {
-          return prev?.date?._seconds < current?.date?._seconds
+          return prev?.date?._seconds > current?.date?._seconds
             ? prev
             : current;
         })
