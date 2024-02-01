@@ -1,10 +1,16 @@
 import { useUser } from "../../context/UserContext";
 import Icon from "../Icon";
 import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
 
 export default function Analytics() {
   const { deviceData } = useUser();
+  const [sortByDate, setSortByDate] = useState(false);
 
+  const handleDate = () => {
+    deviceData.reverse();
+    setSortByDate(!sortByDate);
+  };
   const formatDate = (timestamp) => {
     if (!timestamp) return "No data";
 
@@ -25,6 +31,7 @@ export default function Analytics() {
     return (
       <tr key={index}>
         <td className="border">{formatDate(data?.date)}</td>
+
         <td className="border">
           {data?.temperature != null ? `${data.temperature}°C` : "No data"}
         </td>
@@ -46,7 +53,7 @@ export default function Analytics() {
       <table className="w-full">
         <thead>
           <tr className="bg-gray-100 border">
-            <th>
+            <th onClick={handleDate} className="hover:bg-gray-200">
               <Icon src="calendar" alt="date" text="Date" />
             </th>
             <th>
