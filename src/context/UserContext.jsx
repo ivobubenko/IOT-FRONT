@@ -67,9 +67,15 @@ export const UserProvider = ({ children }) => {
       try {
         setLoadingDeviceData(true);
 
-        const data = await loadDeviceApi(devices[showedDevice]);
-        setDeviceData(data.deviceData);
-        console.log(deviceData);
+        try {
+          const data = await loadDeviceApi(devices[showedDevice]);
+          if (!data.deviceData) throw new Error("YYYYYYAAAAAAAAAAa");
+          setDeviceData(data.deviceData);
+        } catch (e) {
+          setDeviceData([
+            { date: null, moisture: null, temperature: null, waterlevel: null },
+          ]);
+        }
       } catch (error) {
         console.error("Failed to load device data:", error);
         // Handle error appropriately

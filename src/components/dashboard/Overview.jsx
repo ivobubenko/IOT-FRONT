@@ -15,7 +15,7 @@ export default function Overview() {
       : null;
   /*<div class="absolute top-0 -z-10 h-full w-full bg-white"><div class="absolute bottom-auto left-auto right-0 top-0 h-[500px] w-[500px] -translate-x-[30%] translate-y-[20%] rounded-full bg-[rgba(173,109,244,0.5)] opacity-50 blur-[80px]"></div></div>*/
   //<div class="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
-
+  console.log(actualData);
   return loadingDeviceData ? (
     <Spinner />
   ) : (
@@ -39,7 +39,7 @@ export default function Overview() {
           <div className="text-lg font-semibold px-2 hover:text-purple-500 transition-colors duration-300 ">
             <Icon src="water-level" alt="tmp" text=" " height="20" width="20" />
             <span className="text-2xl font-bold">
-              {actualData?.waterlevel.toFixed(0) ?? "No data"}%
+              {actualData?.waterlevel?.toFixed(0) ?? "No data"}%
             </span>
           </div>
         </div>

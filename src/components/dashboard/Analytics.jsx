@@ -25,12 +25,16 @@ export default function Analytics() {
     return (
       <tr key={index}>
         <td className="border">{formatDate(data?.date)}</td>
-        <td className="border">{data?.temperature + "°C" ?? "No data"}</td>
         <td className="border">
-          {data?.moisture?.toFixed(0) + "%" ?? "No data"}
+          {data?.temperature != null ? `${data.temperature}°C` : "No data"}
         </td>
         <td className="border">
-          {data?.waterlevel?.toFixed(0) + "%" ?? "No data"}
+          {data?.moisture != null ? `${data.moisture.toFixed(0)}%` : "No data"}
+        </td>
+        <td className="border">
+          {data?.waterlevel != null
+            ? `${data.waterlevel.toFixed(0)}%`
+            : "No data"}
         </td>
       </tr>
     );
